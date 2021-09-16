@@ -40,7 +40,9 @@ const Calendar = () => {
   const [currMonth, setCurrMonth] = useState(thisMonth + 1);
   const [selectedDate, setSelectedDate] = useState(null);
 
-  console.log(lastDateOfLastMonth);
+  const handleClickedDate = (date) => {
+    setSelectedDate(date);
+  };
 
   return (
     <CalendarContainer>
@@ -62,6 +64,8 @@ const Calendar = () => {
             lastDateOfLastMonth={lastDateOfLastMonth}
             datesOfCurrMonth={datesOfCurrMonth}
             todayDate={todayDate}
+            selectedDate={selectedDate}
+            handleClickedDate={handleClickedDate}
           />
         </CalendarBody>
       </CalendarLayout>
