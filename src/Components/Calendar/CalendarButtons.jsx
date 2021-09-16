@@ -25,6 +25,7 @@ const CalendarButtonLayout = styled.div`
     padding: 0.3rem 0.5rem;
     margin: 0.5rem;
     cursor: pointer;
+    background-color: "#f9f9f9";
 
     :hover {
       background-color: #d0d0d0;
@@ -46,6 +47,7 @@ const NextArrowButton = styled.button`
 const ThisMonthButton = styled.button`
   border: none;
   border-radius: 5px;
+  font-size: 0.8rem; ;
 `;
 
 export default CalendarButtons;

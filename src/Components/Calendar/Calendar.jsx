@@ -1,5 +1,6 @@
 import CalendarButtons from "./CalendarButtons";
 import DaysOfWeek from "./DaysOfWeek";
+import DatesOfMonth from "./DatesOfMonth";
 import styled from "styled-components";
 
 const Calendar = () => {
@@ -17,6 +18,7 @@ const Calendar = () => {
         </CalendarHeader>
         <CalendarBody>
           <DaysOfWeek />
+          <DatesOfMonth />
         </CalendarBody>
       </CalendarLayout>
     </CalendarContainer>
@@ -24,18 +26,16 @@ const Calendar = () => {
 };
 
 const CalendarContainer = styled.div`
-  position: relative;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CalendarLayout = styled.div`
-  position: absolute;
   width: 430px;
   height: 460px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, 50%);
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
 `;
 
@@ -65,8 +65,6 @@ const CalendarButtonLayer = styled.div`
   width: 50%;
 `;
 
-const CalendarBody = styled.div`
-  border: 1px solid yellow;
-`;
+const CalendarBody = styled.div``;
 
 export default Calendar;

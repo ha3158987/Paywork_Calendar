@@ -13,12 +13,13 @@ const DaysOfWeek = () => {
 };
 
 const DaysOfWeekLayout = styled.div`
-  width: 100%;
+  width: 400px;
+  height: 40px;
+  margin: 0 auto;
   display: flex;
 `;
 
 const Day = styled.span`
-  border: 1px solid orange;
   width: 70px;
   height: 30px;
   text-align: center;
