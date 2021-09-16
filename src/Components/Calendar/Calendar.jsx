@@ -1,9 +1,21 @@
+import CalendarButtons from "./CalendarButtons";
 import styled from "styled-components";
 
 const Calendar = () => {
   return (
     <CalendarContainer>
-      <CalendarLayout></CalendarLayout>
+      <CalendarLayout>
+        <CalendarHeader>
+          <CurrentYearMonthLayer>
+            <CurrentYear>2021.</CurrentYear>
+            <CurrentMonth>9</CurrentMonth>
+          </CurrentYearMonthLayer>
+          <CalendarButtonLayer>
+            <CalendarButtons />
+          </CalendarButtonLayer>
+        </CalendarHeader>
+        <CalendarBody></CalendarBody>
+      </CalendarLayout>
     </CalendarContainer>
   );
 };
@@ -23,5 +35,25 @@ const CalendarLayout = styled.div`
   transform: translate(-50%, 50%);
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
 `;
+
+const CalendarHeader = styled.div`
+  display: flex;
+  margin: 1rem 0.5rem;
+`;
+
+const CurrentYearMonthLayer = styled.div`
+  display: flex;
+  width: 50%;
+`;
+
+const CurrentYear = styled.p``;
+
+const CurrentMonth = styled.p``;
+
+const CalendarButtonLayer = styled.div`
+  width: 50%;
+`;
+
+const CalendarBody = styled.div``;
 
 export default Calendar;
