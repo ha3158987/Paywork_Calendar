@@ -1,13 +1,45 @@
 import styled from "styled-components";
 
-const DatesOfMonth = () => {
-  const datesTest = Array.from({ length: 42 });
+const DatesOfMonth = ({
+  firstDayOfThisMonth,
+  lastDayOfThisMonth,
+  lastDateOfLastMonth,
+  datesOfCurrMonth,
+  todayDate,
+}) => {
+  const getDatesOfLastMonth = () => {
+    const emptyArr = Array.from({ length: firstDayOfThisMonth });
+    let firstShowingDate = lastDateOfLastMonth - firstDayOfThisMonth;
+    return emptyArr.map(() => {
+      return {
+        date: firstShowingDate++,
+        month: "previous",
+      };
+    });
+  };
+
+  const getDatesOfNextMonth = () => {
+    const emptyArr = Array.from({ length: 6 - lastDayOfThisMonth });
+    let count = 1;
+    return emptyArr.map(() => {
+      return {
+        date: count++,
+        month: "next",
+      };
+    });
+  };
+
+  const datesOfMonth = [
+    ...getDatesOfLastMonth(),
+    ...datesOfCurrMonth,
+    ...getDatesOfNextMonth(),
+  ];
 
   return (
     <DatesOfMonthLayout>
-      {datesTest.map((date, index) => (
+      {datesOfMonth.map((date) => (
         <Date>
-          <DateButton>{index + 1}</DateButton>
+          <DateButton>{date.date}</DateButton>
         </Date>
       ))}
     </DatesOfMonthLayout>
@@ -29,7 +61,8 @@ const Date = styled.div`
 `;
 
 const DateButton = styled.button`
-  background-color: "#f9f9f9";
+  background-color: transparent;
+  /* background-color: "#f9f9f9"; */
   width: 50px;
   height: 100%;
   border-radius: 90px;
