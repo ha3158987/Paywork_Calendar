@@ -1,13 +1,54 @@
 import styled from "styled-components";
 
-const DatesOfMonth = () => {
-  const datesTest = Array.from({ length: 42 });
+const DatesOfMonth = ({
+  firstDayOfThisMonth,
+  lastDayOfThisMonth,
+  lastDateOfLastMonth,
+  datesOfCurrMonth,
+  todayDate,
+  selectedDate,
+  handleClickedDate,
+}) => {
+  const getDatesOfLastMonth = () => {
+    const emptyArr = Array.from({ length: firstDayOfThisMonth });
+    let firstShowingDate = lastDateOfLastMonth - firstDayOfThisMonth;
+    return emptyArr.map(() => {
+      return {
+        date: firstShowingDate++,
+        month: "previous",
+      };
+    });
+  };
+
+  const getDatesOfNextMonth = () => {
+    const emptyArr = Array.from({ length: 6 - lastDayOfThisMonth });
+    let count = 1;
+    return emptyArr.map(() => {
+      return {
+        date: count++,
+        month: "next",
+      };
+    });
+  };
+
+  const datesOfMonth = [
+    ...getDatesOfLastMonth(),
+    ...datesOfCurrMonth,
+    ...getDatesOfNextMonth(),
+  ];
 
   return (
     <DatesOfMonthLayout>
-      {datesTest.map((date, index) => (
+      {datesOfMonth.map((date) => (
         <Date>
-          <DateButton>{index + 1}</DateButton>
+          <DateButton
+            onClick={() => handleClickedDate(date.date)}
+            category={date.month}
+            isToday={date.date === todayDate}
+            isSelectedDate={date.date === selectedDate}
+          >
+            {date.date}
+          </DateButton>
         </Date>
       ))}
     </DatesOfMonthLayout>
@@ -29,10 +70,22 @@ const Date = styled.div`
 `;
 
 const DateButton = styled.button`
-  background-color: "#f9f9f9";
   width: 50px;
   height: 100%;
   border-radius: 90px;
+  font-weight: 900;
+  background-color: ${(props) =>
+    props.isToday
+      ? "#e9e9e9"
+      : props.isSelectedDate && props.category === "current"
+      ? "#1e90ff"
+      : "transparent"};
+  color: ${(props) =>
+    props.category === "previous" || props.category === "next"
+      ? "#c9c9c9"
+      : props.isSelectedDate
+      ? "#ffffff"
+      : "#55555"};
 `;
 
 export default DatesOfMonth;
