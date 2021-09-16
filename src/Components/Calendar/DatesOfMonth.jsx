@@ -39,7 +39,9 @@ const DatesOfMonth = ({
     <DatesOfMonthLayout>
       {datesOfMonth.map((date) => (
         <Date>
-          <DateButton category={date.month}>{date.date}</DateButton>
+          <DateButton category={date.month} isToday={date.date === todayDate}>
+            {date.date}
+          </DateButton>
         </Date>
       ))}
     </DatesOfMonthLayout>
@@ -62,7 +64,7 @@ const Date = styled.div`
 
 const DateButton = styled.button`
   background-color: transparent;
-  /* background-color: "#f9f9f9"; */
+  background-color: ${(props) => (props.isToday ? "#e9e9e9" : "transparent")};
   width: 50px;
   height: 100%;
   border-radius: 90px;
