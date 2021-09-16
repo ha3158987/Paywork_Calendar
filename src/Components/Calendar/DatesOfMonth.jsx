@@ -39,7 +39,7 @@ const DatesOfMonth = ({
     <DatesOfMonthLayout>
       {datesOfMonth.map((date) => (
         <Date>
-          <DateButton>{date.date}</DateButton>
+          <DateButton category={date.month}>{date.date}</DateButton>
         </Date>
       ))}
     </DatesOfMonthLayout>
@@ -66,6 +66,11 @@ const DateButton = styled.button`
   width: 50px;
   height: 100%;
   border-radius: 90px;
+  font-weight: 900;
+  color: ${(props) =>
+    props.category === "previous" || props.category === "next"
+      ? "#e9e9e9"
+      : "#55555"};
 `;
 
 export default DatesOfMonth;
