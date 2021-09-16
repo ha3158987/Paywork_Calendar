@@ -44,6 +44,11 @@ const CalendarHeader = styled.div`
 const CurrentYearMonthLayer = styled.div`
   display: flex;
   width: 50%;
+
+  & > p {
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
 `;
 
 const CurrentYear = styled.p``;
