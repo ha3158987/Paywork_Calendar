@@ -6,7 +6,7 @@ const DaysOfWeek = () => {
   return (
     <DaysOfWeekLayout>
       {days.map((day) => (
-        <Day>{day}</Day>
+        <Day day={day}>{day}</Day>
       ))}
     </DaysOfWeekLayout>
   );
@@ -24,6 +24,12 @@ const Day = styled.span`
   height: 30px;
   text-align: center;
   font-weight: bold;
+  color: ${(props) =>
+    props.day === "일"
+      ? "#ff6b6b"
+      : props.day === "토"
+      ? "#5352ed"
+      : "#2f3542"};
 `;
 
 export default DaysOfWeek;
