@@ -2,10 +2,10 @@ import { ReactComponent as PrevArrow } from "Assets/leftArrow.svg";
 import { ReactComponent as NextArrow } from "Assets/rightArrow.svg";
 import styled from "styled-components";
 
-const CalendarButtons = () => {
+const CalendarButtons = ({ handlePrevButtonClick }) => {
   return (
     <CalendarButtonLayout>
-      <PrevArrowButton>
+      <PrevArrowButton onClick={handlePrevButtonClick}>
         <PrevArrow />
       </PrevArrowButton>
       <NextArrowButton>

@@ -6,8 +6,11 @@ import styled from "styled-components";
 
 const Calendar = () => {
   const moment = require("moment");
-  const thisYear = moment().year();
-  const thisMonth = moment().month(); //이번 달: +1 해야함
+  const [currYear, setCurrYear] = useState(moment().year());
+  const [currMonth, setCurrMonth] = useState(moment().month() + 1);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const thisYear = currYear;
+  const thisMonth = currMonth - 1; //이번 달: +1 해야함
   const todayDate = moment().get("date"); //오늘 날짜
   const todayDay = moment().get("day"); //오늘 요일(인덱스)
   //이번달 1일의 요일
@@ -36,12 +39,18 @@ const Calendar = () => {
       };
     }
   );
-  const [currYear, setCurrYear] = useState(thisYear);
-  const [currMonth, setCurrMonth] = useState(thisMonth + 1);
-  const [selectedDate, setSelectedDate] = useState(null);
 
   const handleClickedDate = (date) => {
     setSelectedDate(date);
+  };
+
+  const handlePrevButtonClick = () => {
+    if (currMonth === 1) {
+      setCurrYear(currYear - 1);
+      setCurrMonth(12);
+    } else {
+      setCurrMonth(currMonth - 1);
+    }
   };
 
   return (
@@ -53,7 +62,7 @@ const Calendar = () => {
             <CurrentMonth>. {currMonth}</CurrentMonth>
           </CurrentYearMonthLayer>
           <CalendarButtonLayer>
-            <CalendarButtons />
+            <CalendarButtons handlePrevButtonClick={handlePrevButtonClick} />
           </CalendarButtonLayer>
         </CalendarHeader>
         <CalendarBody>
