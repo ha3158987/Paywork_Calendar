@@ -46,7 +46,11 @@ const DatesOfMonth = ({
             onClick={() => handleClickedDate(date)}
             category={date.month}
             isToday={currMonth === today.month && date.date === today.date}
-            isSelectedDate={date.date === selectedDate}
+            isSelectedDate={
+              selectedDate &&
+              date.date === selectedDate.date &&
+              currMonth === selectedDate.month
+            }
           >
             {date.date}
           </DateButton>

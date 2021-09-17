@@ -47,7 +47,10 @@ const Calendar = () => {
     } else if (date.month === "next") {
       handleNextButtonClick();
     }
-    setSelectedDate(date.date);
+    setSelectedDate({
+      month: currMonth,
+      date: date.date,
+    });
   };
 
   const handlePrevButtonClick = () => {
