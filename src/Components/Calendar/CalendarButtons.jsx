@@ -2,7 +2,11 @@ import { ReactComponent as PrevArrow } from "Assets/leftArrow.svg";
 import { ReactComponent as NextArrow } from "Assets/rightArrow.svg";
 import styled from "styled-components";
 
-const CalendarButtons = ({ handlePrevButtonClick, handleNextButtonClick }) => {
+const CalendarButtons = ({
+  handlePrevButtonClick,
+  handleNextButtonClick,
+  handleThisMonthButtonClick,
+}) => {
   return (
     <CalendarButtonLayout>
       <PrevArrowButton onClick={handlePrevButtonClick}>
@@ -11,7 +15,9 @@ const CalendarButtons = ({ handlePrevButtonClick, handleNextButtonClick }) => {
       <NextArrowButton onClick={handleNextButtonClick}>
         <NextArrow />
       </NextArrowButton>
-      <ThisMonthButton>이번달</ThisMonthButton>
+      <ThisMonthButton onClick={handleThisMonthButtonClick}>
+        이번달
+      </ThisMonthButton>
     </CalendarButtonLayout>
   );
 };

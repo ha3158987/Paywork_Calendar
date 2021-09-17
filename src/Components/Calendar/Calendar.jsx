@@ -63,7 +63,10 @@ const Calendar = () => {
     }
   };
 
-  const handleThisMonthButtonClick = () => {};
+  const handleThisMonthButtonClick = () => {
+    setCurrYear(today.year);
+    setCurrMonth(today.month);
+  };
 
   return (
     <CalendarContainer>
@@ -77,18 +80,19 @@ const Calendar = () => {
             <CalendarButtons
               handlePrevButtonClick={handlePrevButtonClick}
               handleNextButtonClick={handleNextButtonClick}
+              handleThisMonthButtonClick={handleThisMonthButtonClick}
             />
           </CalendarButtonLayer>
         </CalendarHeader>
         <CalendarBody>
           <DaysOfWeek />
           <DatesOfMonth
+            today={today}
             currMonth={currMonth}
             firstDayOfThisMonth={firstDayOfThisMonth}
             lastDayOfThisMonth={lastDayOfThisMonth}
             lastDateOfLastMonth={lastDateOfLastMonth}
             datesOfCurrMonth={datesOfCurrMonth}
-            today={today}
             selectedDate={selectedDate}
             handleClickedDate={handleClickedDate}
           />

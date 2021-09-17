@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 const DatesOfMonth = ({
+  today,
   currMonth,
   firstDayOfThisMonth,
   lastDayOfThisMonth,
   lastDateOfLastMonth,
   datesOfCurrMonth,
-  today,
   selectedDate,
   handleClickedDate,
 }) => {
