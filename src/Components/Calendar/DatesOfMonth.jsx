@@ -43,7 +43,7 @@ const DatesOfMonth = ({
       {datesOfMonth.map((date) => (
         <Date>
           <DateButton
-            onClick={() => handleClickedDate(date)}
+            onClick={() => handleClickedDate(date, currMonth)}
             category={date.month}
             isToday={currMonth === today.month && date.date === today.date}
             isSelectedDate={

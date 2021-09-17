@@ -41,16 +41,28 @@ const Calendar = () => {
     }
   );
 
-  const handleClickedDate = (date) => {
-    if (date.month === "previous") {
+  const handleClickedDate = (clickedDate, clickedMonth) => {
+    if (clickedDate.month === "previous") {
       handlePrevButtonClick();
-    } else if (date.month === "next") {
+    } else if (clickedDate.month === "next") {
       handleNextButtonClick();
     }
-    setSelectedDate({
-      month: currMonth,
-      date: date.date,
-    });
+
+    if (!selectedDate) {
+      setSelectedDate({
+        month: currMonth,
+        date: clickedDate.date,
+      });
+      return;
+    }
+
+    clickedMonth === selectedDate.month &&
+    clickedDate.date === selectedDate.date
+      ? setSelectedDate(null)
+      : setSelectedDate({
+          month: currMonth,
+          date: clickedDate.date,
+        });
   };
 
   const handlePrevButtonClick = () => {
