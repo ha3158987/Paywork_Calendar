@@ -43,10 +43,14 @@ const DatesOfMonth = ({
       {datesOfMonth.map((date) => (
         <Date>
           <DateButton
-            onClick={() => handleClickedDate(date.date)}
+            onClick={() => handleClickedDate(date, currMonth)}
             category={date.month}
             isToday={currMonth === today.month && date.date === today.date}
-            isSelectedDate={date.date === selectedDate}
+            isSelectedDate={
+              selectedDate &&
+              date.date === selectedDate.date &&
+              currMonth === selectedDate.month
+            }
           >
             {date.date}
           </DateButton>
@@ -76,10 +80,10 @@ const DateButton = styled.button`
   border-radius: 90px;
   font-weight: 900;
   background-color: ${(props) =>
-    props.isToday
-      ? "#e9e9e9"
-      : props.isSelectedDate && props.category === "current"
+    props.isSelectedDate && props.category === "current"
       ? "#1e90ff"
+      : props.isToday
+      ? "#e9e9e9"
       : "transparent"};
   color: ${(props) =>
     props.category === "previous" || props.category === "next"

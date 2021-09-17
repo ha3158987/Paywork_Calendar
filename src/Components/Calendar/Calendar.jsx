@@ -41,8 +41,28 @@ const Calendar = () => {
     }
   );
 
-  const handleClickedDate = (date) => {
-    setSelectedDate(date);
+  const handleClickedDate = (clickedDate, clickedMonth) => {
+    if (clickedDate.month === "previous") {
+      handlePrevButtonClick();
+    } else if (clickedDate.month === "next") {
+      handleNextButtonClick();
+    }
+
+    if (!selectedDate) {
+      setSelectedDate({
+        month: currMonth,
+        date: clickedDate.date,
+      });
+      return;
+    }
+
+    clickedMonth === selectedDate.month &&
+    clickedDate.date === selectedDate.date
+      ? setSelectedDate(null)
+      : setSelectedDate({
+          month: currMonth,
+          date: clickedDate.date,
+        });
   };
 
   const handlePrevButtonClick = () => {
