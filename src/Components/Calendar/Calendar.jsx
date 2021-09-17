@@ -53,6 +53,15 @@ const Calendar = () => {
     }
   };
 
+  const handleNextButtonClick = () => {
+    if (currMonth === 12) {
+      setCurrYear(currYear + 1);
+      setCurrMonth(1);
+    } else {
+      setCurrMonth(currMonth + 1);
+    }
+  };
+
   return (
     <CalendarContainer>
       <CalendarLayout>
@@ -62,7 +71,10 @@ const Calendar = () => {
             <CurrentMonth>. {currMonth}</CurrentMonth>
           </CurrentYearMonthLayer>
           <CalendarButtonLayer>
-            <CalendarButtons handlePrevButtonClick={handlePrevButtonClick} />
+            <CalendarButtons
+              handlePrevButtonClick={handlePrevButtonClick}
+              handleNextButtonClick={handleNextButtonClick}
+            />
           </CalendarButtonLayer>
         </CalendarHeader>
         <CalendarBody>
