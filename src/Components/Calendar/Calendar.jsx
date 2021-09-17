@@ -42,7 +42,12 @@ const Calendar = () => {
   );
 
   const handleClickedDate = (date) => {
-    setSelectedDate(date);
+    if (date.month === "previous") {
+      handlePrevButtonClick();
+    } else if (date.month === "next") {
+      handleNextButtonClick();
+    }
+    setSelectedDate(date.date);
   };
 
   const handlePrevButtonClick = () => {
