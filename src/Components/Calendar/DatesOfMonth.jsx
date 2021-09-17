@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 const DatesOfMonth = ({
+  currMonth,
   firstDayOfThisMonth,
   lastDayOfThisMonth,
   lastDateOfLastMonth,
   datesOfCurrMonth,
-  todayDate,
+  today,
   selectedDate,
   handleClickedDate,
 }) => {
@@ -44,7 +45,7 @@ const DatesOfMonth = ({
           <DateButton
             onClick={() => handleClickedDate(date.date)}
             category={date.month}
-            isToday={date.date === todayDate}
+            isToday={currMonth === today.month && date.date === today.date}
             isSelectedDate={date.date === selectedDate}
           >
             {date.date}

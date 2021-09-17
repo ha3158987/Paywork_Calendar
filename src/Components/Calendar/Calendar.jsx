@@ -6,28 +6,29 @@ import styled from "styled-components";
 
 const Calendar = () => {
   const moment = require("moment");
-  const [currYear, setCurrYear] = useState(moment().year());
-  const [currMonth, setCurrMonth] = useState(moment().month() + 1);
+  const today = {
+    year: moment().year(),
+    month: moment().month() + 1,
+    date: moment().get("date"),
+  };
+  const [currYear, setCurrYear] = useState(today.year);
+  const [currMonth, setCurrMonth] = useState(today.month);
   const [selectedDate, setSelectedDate] = useState(null);
-  const thisYear = currYear;
-  const thisMonth = currMonth - 1; //이번 달: +1 해야함
-  const todayDate = moment().get("date"); //오늘 날짜
-  const todayDay = moment().get("day"); //오늘 요일(인덱스)
   //이번달 1일의 요일
-  const firstDayOfThisMonth = moment([thisYear, thisMonth, 1]).day();
+  const firstDayOfThisMonth = moment([currYear, currMonth - 1, 1]).day();
   //보여지는 월의 마지막 날짜
-  const lastDateOfCurrMonth = moment([thisYear, 0, 31])
-    .month(thisMonth)
+  const lastDateOfCurrMonth = moment([currYear, 0, 31])
+    .month(currMonth - 1)
     .format("DD");
   //이번달 마지막날의 요일
   const lastDayOfThisMonth = moment([
-    thisYear,
-    thisMonth,
+    currYear,
+    currMonth - 1,
     lastDateOfCurrMonth,
   ]).day();
   //이전달의 마지막 날짜
-  const lastDateOfLastMonth = moment([thisYear, 0, 31])
-    .month(thisMonth - 1)
+  const lastDateOfLastMonth = moment([currYear, 0, 31])
+    .month(currMonth - 1 - 1)
     .format("DD");
   //보여지는 월의 1 ~ 마지막날짜까지 일자를 갖고 있는 배열
   const datesOfCurrMonth = Array.from(
@@ -62,6 +63,8 @@ const Calendar = () => {
     }
   };
 
+  const handleThisMonthButtonClick = () => {};
+
   return (
     <CalendarContainer>
       <CalendarLayout>
@@ -80,11 +83,12 @@ const Calendar = () => {
         <CalendarBody>
           <DaysOfWeek />
           <DatesOfMonth
+            currMonth={currMonth}
             firstDayOfThisMonth={firstDayOfThisMonth}
             lastDayOfThisMonth={lastDayOfThisMonth}
             lastDateOfLastMonth={lastDateOfLastMonth}
             datesOfCurrMonth={datesOfCurrMonth}
-            todayDate={todayDate}
+            today={today}
             selectedDate={selectedDate}
             handleClickedDate={handleClickedDate}
           />
