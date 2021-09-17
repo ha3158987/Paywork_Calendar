@@ -6,25 +6,29 @@ import styled from "styled-components";
 
 const Calendar = () => {
   const moment = require("moment");
-  const thisYear = moment().year();
-  const thisMonth = moment().month(); //이번 달: +1 해야함
-  const todayDate = moment().get("date"); //오늘 날짜
-  const todayDay = moment().get("day"); //오늘 요일(인덱스)
+  const today = {
+    year: moment().year(),
+    month: moment().month() + 1,
+    date: moment().get("date"),
+  };
+  const [currYear, setCurrYear] = useState(today.year);
+  const [currMonth, setCurrMonth] = useState(today.month);
+  const [selectedDate, setSelectedDate] = useState(null);
   //이번달 1일의 요일
-  const firstDayOfThisMonth = moment([thisYear, thisMonth, 1]).day();
+  const firstDayOfThisMonth = moment([currYear, currMonth - 1, 1]).day();
   //보여지는 월의 마지막 날짜
-  const lastDateOfCurrMonth = moment([thisYear, 0, 31])
-    .month(thisMonth)
+  const lastDateOfCurrMonth = moment([currYear, 0, 31])
+    .month(currMonth - 1)
     .format("DD");
   //이번달 마지막날의 요일
   const lastDayOfThisMonth = moment([
-    thisYear,
-    thisMonth,
+    currYear,
+    currMonth - 1,
     lastDateOfCurrMonth,
   ]).day();
   //이전달의 마지막 날짜
-  const lastDateOfLastMonth = moment([thisYear, 0, 31])
-    .month(thisMonth - 1)
+  const lastDateOfLastMonth = moment([currYear, 0, 31])
+    .month(currMonth - 1 - 1)
     .format("DD");
   //보여지는 월의 1 ~ 마지막날짜까지 일자를 갖고 있는 배열
   const datesOfCurrMonth = Array.from(
@@ -36,12 +40,32 @@ const Calendar = () => {
       };
     }
   );
-  const [currYear, setCurrYear] = useState(thisYear);
-  const [currMonth, setCurrMonth] = useState(thisMonth + 1);
-  const [selectedDate, setSelectedDate] = useState(null);
 
   const handleClickedDate = (date) => {
     setSelectedDate(date);
+  };
+
+  const handlePrevButtonClick = () => {
+    if (currMonth === 1) {
+      setCurrYear(currYear - 1);
+      setCurrMonth(12);
+    } else {
+      setCurrMonth(currMonth - 1);
+    }
+  };
+
+  const handleNextButtonClick = () => {
+    if (currMonth === 12) {
+      setCurrYear(currYear + 1);
+      setCurrMonth(1);
+    } else {
+      setCurrMonth(currMonth + 1);
+    }
+  };
+
+  const handleThisMonthButtonClick = () => {
+    setCurrYear(today.year);
+    setCurrMonth(today.month);
   };
 
   return (
@@ -53,17 +77,22 @@ const Calendar = () => {
             <CurrentMonth>. {currMonth}</CurrentMonth>
           </CurrentYearMonthLayer>
           <CalendarButtonLayer>
-            <CalendarButtons />
+            <CalendarButtons
+              handlePrevButtonClick={handlePrevButtonClick}
+              handleNextButtonClick={handleNextButtonClick}
+              handleThisMonthButtonClick={handleThisMonthButtonClick}
+            />
           </CalendarButtonLayer>
         </CalendarHeader>
         <CalendarBody>
           <DaysOfWeek />
           <DatesOfMonth
+            today={today}
+            currMonth={currMonth}
             firstDayOfThisMonth={firstDayOfThisMonth}
             lastDayOfThisMonth={lastDayOfThisMonth}
             lastDateOfLastMonth={lastDateOfLastMonth}
             datesOfCurrMonth={datesOfCurrMonth}
-            todayDate={todayDate}
             selectedDate={selectedDate}
             handleClickedDate={handleClickedDate}
           />
