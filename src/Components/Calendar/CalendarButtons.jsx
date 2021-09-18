@@ -1,5 +1,4 @@
-import { ReactComponent as PrevArrow } from "Assets/leftArrow.svg";
-import { ReactComponent as NextArrow } from "Assets/rightArrow.svg";
+import Button from "Components/Common/Button";
 import styled from "styled-components";
 
 const CalendarButtons = ({
@@ -9,51 +8,26 @@ const CalendarButtons = ({
 }) => {
   return (
     <CalendarButtonLayout>
-      <PrevArrowButton onClick={handlePrevButtonClick}>
-        <PrevArrow />
-      </PrevArrowButton>
-      <NextArrowButton onClick={handleNextButtonClick}>
-        <NextArrow />
-      </NextArrowButton>
-      <ThisMonthButton onClick={handleThisMonthButtonClick}>
+      <Button
+        icon={"prev"}
+        name={"previous"}
+        handleClickFunc={handlePrevButtonClick}
+      />
+      <Button
+        icon={"next"}
+        name={"next"}
+        handleClickFunc={handleNextButtonClick}
+      />
+      <Button name={"thisMonth"} handleClickFunc={handleThisMonthButtonClick}>
         이번달
-      </ThisMonthButton>
+      </Button>
     </CalendarButtonLayout>
   );
 };
 
-// todo: 반복되는 스타일 변수화하기
 const CalendarButtonLayout = styled.div`
   display: flex;
   justify-content: flex-end;
-
-  & > button {
-    padding: 0.3rem 0.5rem;
-    margin: 0.5rem;
-    cursor: pointer;
-    background-color: "#f9f9f9";
-
-    :hover {
-      background-color: #d0d0d0;
-      transition: background-color 0.2s;
-    }
-  }
-`;
-
-const PrevArrowButton = styled.button`
-  border: none;
-  border-radius: 5px;
-`;
-
-const NextArrowButton = styled.button`
-  border: none;
-  border-radius: 5px;
-`;
-
-const ThisMonthButton = styled.button`
-  border: none;
-  border-radius: 5px;
-  font-size: 0.8rem; ;
 `;
 
 export default CalendarButtons;

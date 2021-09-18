@@ -3,6 +3,7 @@ import styled from "styled-components";
 const DatesOfMonth = ({
   today,
   currMonth,
+  currYear,
   firstDayOfThisMonth,
   lastDayOfThisMonth,
   lastDateOfLastMonth,
@@ -12,7 +13,7 @@ const DatesOfMonth = ({
 }) => {
   const getDatesOfLastMonth = () => {
     const emptyArr = Array.from({ length: firstDayOfThisMonth });
-    let firstShowingDate = lastDateOfLastMonth - firstDayOfThisMonth;
+    let firstShowingDate = lastDateOfLastMonth - firstDayOfThisMonth + 1;
     return emptyArr.map(() => {
       return {
         date: firstShowingDate++,
@@ -41,15 +42,20 @@ const DatesOfMonth = ({
   return (
     <DatesOfMonthLayout>
       {datesOfMonth.map((date) => (
-        <Date>
+        <Date key={`date-${date.month}-${date.date}`}>
           <DateButton
             onClick={() => handleClickedDate(date, currMonth)}
             category={date.month}
-            isToday={currMonth === today.month && date.date === today.date}
+            isToday={
+              currYear === today.year &&
+              currMonth === today.month &&
+              date.date === today.date
+            }
             isSelectedDate={
               selectedDate &&
-              date.date === selectedDate.date &&
-              currMonth === selectedDate.month
+              currYear === selectedDate.year &&
+              currMonth === selectedDate.month &&
+              date.date === selectedDate.date
             }
           >
             {date.date}
