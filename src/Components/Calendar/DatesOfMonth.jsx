@@ -12,7 +12,7 @@ const DatesOfMonth = ({
 }) => {
   const getDatesOfLastMonth = () => {
     const emptyArr = Array.from({ length: firstDayOfThisMonth });
-    let firstShowingDate = lastDateOfLastMonth - firstDayOfThisMonth;
+    let firstShowingDate = lastDateOfLastMonth - firstDayOfThisMonth + 1;
     return emptyArr.map(() => {
       return {
         date: firstShowingDate++,
