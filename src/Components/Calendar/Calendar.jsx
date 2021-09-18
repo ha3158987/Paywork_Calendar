@@ -50,6 +50,7 @@ const Calendar = () => {
 
     if (!selectedDate) {
       setSelectedDate({
+        year: currYear,
         month: currMonth,
         date: clickedDate.date,
       });
@@ -60,12 +61,13 @@ const Calendar = () => {
     clickedDate.date === selectedDate.date
       ? setSelectedDate(null)
       : setSelectedDate({
+          year: currYear,
           month:
             clickedDate.month === "previous"
               ? currMonth - 1
               : clickedDate.month === "next"
               ? currMonth + 1
-              : currMonth, //=> 이전달이나 다음달의 경우 이게 달라야함.
+              : currMonth,
           date: clickedDate.date,
         });
   };
@@ -114,6 +116,7 @@ const Calendar = () => {
           <DatesOfMonth
             today={today}
             currMonth={currMonth}
+            currYear={currYear}
             firstDayOfThisMonth={firstDayOfThisMonth}
             lastDayOfThisMonth={lastDayOfThisMonth}
             lastDateOfLastMonth={lastDateOfLastMonth}

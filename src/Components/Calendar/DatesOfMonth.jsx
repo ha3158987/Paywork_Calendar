@@ -3,6 +3,7 @@ import styled from "styled-components";
 const DatesOfMonth = ({
   today,
   currMonth,
+  currYear,
   firstDayOfThisMonth,
   lastDayOfThisMonth,
   lastDateOfLastMonth,
@@ -45,11 +46,16 @@ const DatesOfMonth = ({
           <DateButton
             onClick={() => handleClickedDate(date, currMonth)}
             category={date.month}
-            isToday={currMonth === today.month && date.date === today.date}
+            isToday={
+              currYear === today.year &&
+              currMonth === today.month &&
+              date.date === today.date
+            }
             isSelectedDate={
               selectedDate &&
-              date.date === selectedDate.date &&
-              currMonth === selectedDate.month
+              currYear === selectedDate.year &&
+              currMonth === selectedDate.month &&
+              date.date === selectedDate.date
             }
           >
             {date.date}
