@@ -42,7 +42,7 @@ const DatesOfMonth = ({
   return (
     <DatesOfMonthLayout>
       {datesOfMonth.map((date) => (
-        <Date>
+        <Date key={`date-${date.month}-${date.date}`}>
           <DateButton
             onClick={() => handleClickedDate(date, currMonth)}
             category={date.month}

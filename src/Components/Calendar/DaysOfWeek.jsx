@@ -6,7 +6,9 @@ const DaysOfWeek = () => {
   return (
     <DaysOfWeekLayout>
       {days.map((day) => (
-        <Day day={day}>{day}</Day>
+        <Day key={`days-${day}`} day={day}>
+          {day}
+        </Day>
       ))}
     </DaysOfWeekLayout>
   );
