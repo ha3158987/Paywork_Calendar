@@ -3,9 +3,9 @@ import CalendarButtons from "./CalendarButtons";
 import DaysOfWeek from "./DaysOfWeek";
 import DatesOfMonth from "./DatesOfMonth";
 import styled from "styled-components";
+import * as moment from "moment";
 
 const Calendar = () => {
-  const moment = require("moment");
   const today = {
     year: moment().year(),
     month: moment().month() + 1,
@@ -41,7 +41,7 @@ const Calendar = () => {
     }
   );
 
-  const handleClickedDate = (clickedDate, clickedMonth) => {
+  const handleClickedDate = (clickedDate, displayedMonth) => {
     if (clickedDate.month === "previous") {
       handlePrevButtonClick();
     } else if (clickedDate.month === "next") {
@@ -55,12 +55,17 @@ const Calendar = () => {
       });
       return;
     }
-
-    clickedMonth === selectedDate.month &&
+    //선택날짜 토글 & 선택날짜 저장
+    displayedMonth === selectedDate.month &&
     clickedDate.date === selectedDate.date
       ? setSelectedDate(null)
       : setSelectedDate({
-          month: currMonth,
+          month:
+            clickedDate.month === "previous"
+              ? currMonth - 1
+              : clickedDate.month === "next"
+              ? currMonth + 1
+              : currMonth, //=> 이전달이나 다음달의 경우 이게 달라야함.
           date: clickedDate.date,
         });
   };
