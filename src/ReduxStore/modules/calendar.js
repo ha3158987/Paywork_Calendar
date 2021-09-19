@@ -25,6 +25,12 @@ export const clickDate = ({ clickedDate, displayedMonth }) => ({
 export const clickPrevButton = () => ({
   type: CLICK_PREV_BUTTON,
 });
+export const clickNextButton = () => ({
+  type: CLICK_NEXT_BUTTON,
+});
+export const clickThisMonthButton = () => ({
+  type: CLICK_THISMONTH_BUTTON,
+});
 
 //reducer 함수
 function calendarReducer(calendarState = calendarInitialState, action) {
@@ -107,7 +113,27 @@ function calendarReducer(calendarState = calendarInitialState, action) {
         };
       }
     }
-
+    case CLICK_NEXT_BUTTON: {
+      if (calendarState.currMonth === 12) {
+        return {
+          ...calendarState,
+          currYear: calendarState.currYear + 1,
+          currMonth: 1,
+        };
+      } else {
+        return {
+          ...calendarState,
+          currMonth: calendarState.currMonth + 1,
+        };
+      }
+    }
+    case CLICK_THISMONTH_BUTTON: {
+      return {
+        ...calendarState,
+        currYear: calendarState.today.year,
+        currMonth: calendarState.today.month,
+      };
+    }
     default:
       return calendarState;
   }
