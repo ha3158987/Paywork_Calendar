@@ -1,19 +1,17 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CalendarButtons from "./CalendarButtons";
 import DaysOfWeek from "./DaysOfWeek";
 import DatesOfMonth from "./DatesOfMonth";
 import styled from "styled-components";
 import * as moment from "moment";
+import { clickDate } from "ReduxStore/modules/calendar";
 
 const Calendar = () => {
-  const today = {
-    year: moment().year(),
-    month: moment().month() + 1,
-    date: moment().get("date"),
-  };
-  const [currYear, setCurrYear] = useState(today.year);
-  const [currMonth, setCurrMonth] = useState(today.month);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const dispatch = useDispatch();
+  const { today, currYear, currMonth, selectedDate } = useSelector(
+    (state) => state
+  );
+
   //이번달 1일의 요일
   const firstDayOfThisMonth = moment([currYear, currMonth - 1, 1]).day();
   //보여지는 월의 마지막 날짜
@@ -42,58 +40,36 @@ const Calendar = () => {
   );
 
   const handleClickedDate = (clickedDate, displayedMonth) => {
-    if (clickedDate.month === "previous") {
-      handlePrevButtonClick();
-    } else if (clickedDate.month === "next") {
-      handleNextButtonClick();
-    }
-
-    if (!selectedDate) {
-      setSelectedDate({
-        year: currYear,
-        month: currMonth,
-        date: clickedDate.date,
-      });
-      return;
-    }
-    //선택날짜 토글 & 선택날짜 저장
-    displayedMonth === selectedDate.month &&
-    clickedDate.date === selectedDate.date
-      ? setSelectedDate(null)
-      : setSelectedDate({
-          year: currYear,
-          month:
-            clickedDate.month === "previous"
-              ? currMonth - 1
-              : clickedDate.month === "next"
-              ? currMonth + 1
-              : currMonth,
-          date: clickedDate.date,
-        });
+    dispatch(
+      clickDate({
+        clickedDate,
+        displayedMonth,
+      })
+    );
   };
 
-  const handlePrevButtonClick = () => {
-    if (currMonth === 1) {
-      setCurrYear(currYear - 1);
-      setCurrMonth(12);
-    } else {
-      setCurrMonth(currMonth - 1);
-    }
-  };
+  // const handlePrevButtonClick = () => {
+  //   if (currMonth === 1) {
+  //     setCurrYear(currYear - 1);
+  //     setCurrMonth(12);
+  //   } else {
+  //     setCurrMonth(currMonth - 1);
+  //   }
+  // };
 
-  const handleNextButtonClick = () => {
-    if (currMonth === 12) {
-      setCurrYear(currYear + 1);
-      setCurrMonth(1);
-    } else {
-      setCurrMonth(currMonth + 1);
-    }
-  };
+  // const handleNextButtonClick = () => {
+  //   if (currMonth === 12) {
+  //     setCurrYear(currYear + 1);
+  //     setCurrMonth(1);
+  //   } else {
+  //     setCurrMonth(currMonth + 1);
+  //   }
+  // };
 
-  const handleThisMonthButtonClick = () => {
-    setCurrYear(today.year);
-    setCurrMonth(today.month);
-  };
+  // const handleThisMonthButtonClick = () => {
+  //   setCurrYear(today.year);
+  //   setCurrMonth(today.month);
+  // };
 
   return (
     <CalendarContainer>
@@ -105,9 +81,9 @@ const Calendar = () => {
           </CurrentYearMonthLayer>
           <CalendarButtonLayer>
             <CalendarButtons
-              handlePrevButtonClick={handlePrevButtonClick}
-              handleNextButtonClick={handleNextButtonClick}
-              handleThisMonthButtonClick={handleThisMonthButtonClick}
+            // handlePrevButtonClick={handlePrevButtonClick}
+            // handleNextButtonClick={handleNextButtonClick}
+            // handleThisMonthButtonClick={handleThisMonthButtonClick}
             />
           </CalendarButtonLayer>
         </CalendarHeader>
