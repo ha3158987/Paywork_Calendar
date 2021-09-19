@@ -101,6 +101,11 @@ const DateButton = styled.button`
       : "#55555"};
 `;
 
+const CalendarButtonLayout = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
 export const style = {
   CalendarContainer,
   CalendarLayout,
@@ -115,4 +120,5 @@ export const style = {
   DatesOfMonthLayout,
   Date,
   DateButton,
+  CalendarButtonLayout,
 };

@@ -1,4 +1,4 @@
-import { style } from "./CalendarStyle";
+import { style } from "./CalendarStyles";
 import useCalendar from "Hooks/useCalendar";
 
 const DatesOfMonth = () => {

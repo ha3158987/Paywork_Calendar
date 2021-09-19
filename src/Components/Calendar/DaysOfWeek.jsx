@@ -1,4 +1,4 @@
-import { style } from "./CalendarStyle";
+import { style } from "./CalendarStyles";
 
 const DaysOfWeek = () => {
   const days = ["일", "월", "화", "수", "목", "금", "토"];

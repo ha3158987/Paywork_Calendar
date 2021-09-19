@@ -1,4 +1,4 @@
-import { style } from "./CalendarStyle";
+import { style } from "./CalendarStyles";
 import CalendarButtons from "./CalendarButtons";
 import DaysOfWeek from "./DaysOfWeek";
 import DatesOfMonth from "./DatesOfMonth";
