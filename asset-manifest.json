@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/Paywork_Calendar/static/js/main.2d9447f1.chunk.js",
+    "main.js.map": "/Paywork_Calendar/static/js/main.2d9447f1.chunk.js.map",
+    "runtime-main.js": "/Paywork_Calendar/static/js/runtime-main.f9ed4084.js",
+    "runtime-main.js.map": "/Paywork_Calendar/static/js/runtime-main.f9ed4084.js.map",
+    "static/js/2.dfb11bc0.chunk.js": "/Paywork_Calendar/static/js/2.dfb11bc0.chunk.js",
+    "static/js/2.dfb11bc0.chunk.js.map": "/Paywork_Calendar/static/js/2.dfb11bc0.chunk.js.map",
+    "index.html": "/Paywork_Calendar/index.html",
+    "static/js/2.dfb11bc0.chunk.js.LICENSE.txt": "/Paywork_Calendar/static/js/2.dfb11bc0.chunk.js.LICENSE.txt",
+    "static/media/leftArrow.177dbedd.svg": "/Paywork_Calendar/static/media/leftArrow.177dbedd.svg",
+    "static/media/rightArrow.047445a4.svg": "/Paywork_Calendar/static/media/rightArrow.047445a4.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f9ed4084.js",
+    "static/js/2.dfb11bc0.chunk.js",
+    "static/js/main.2d9447f1.chunk.js"
+  ]
+}
