@@ -8,6 +8,23 @@ const useCalendar = () => {
     (state) => state
   );
 
+  const isToday = (date) => {
+    return (
+      currYear === today.year &&
+      currMonth === today.month &&
+      date.date === today.date
+    );
+  };
+
+  const isSelectedDate = (date) => {
+    return (
+      selectedDate &&
+      currYear === selectedDate.year &&
+      currMonth === selectedDate.month &&
+      date.date === selectedDate.date
+    );
+  };
+
   //보여지는 월의 마지막 날짜
   const lastDateOfCurrMonth = moment([currYear, 0, 31])
     .month(currMonth - 1)
@@ -78,14 +95,8 @@ const useCalendar = () => {
   return {
     currYear,
     currMonth,
-    today,
-    selectedDate,
-    lastDateOfCurrMonth,
-    firstDayOfThisMonth,
-    lastDayOfThisMonth,
-    datesOfCurrMonth,
-    getDatesOfLastMonth,
-    getDatesOfNextMonth,
+    isToday,
+    isSelectedDate,
     datesOfMonth,
     handleClickedDate,
   };

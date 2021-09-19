@@ -3,10 +3,9 @@ import useCalendar from "Hooks/useCalendar";
 
 const DatesOfMonth = () => {
   const {
-    currYear,
     currMonth,
-    today,
-    selectedDate,
+    isToday,
+    isSelectedDate,
     datesOfMonth,
     handleClickedDate,
   } = useCalendar();
@@ -18,17 +17,8 @@ const DatesOfMonth = () => {
           <DateButton
             onClick={() => handleClickedDate(date, currMonth)}
             category={date.month}
-            isToday={
-              currYear === today.year &&
-              currMonth === today.month &&
-              date.date === today.date
-            }
-            isSelectedDate={
-              selectedDate &&
-              currYear === selectedDate.year &&
-              currMonth === selectedDate.month &&
-              date.date === selectedDate.date
-            }
+            isToday={isToday(date)}
+            isSelectedDate={isSelectedDate(date)}
           >
             {date.date}
           </DateButton>

@@ -1,8 +1,7 @@
+import styled from "styled-components";
 import CalendarButtons from "./CalendarButtons";
 import DaysOfWeek from "./DaysOfWeek";
 import DatesOfMonth from "./DatesOfMonth";
-import styled from "styled-components";
-
 import useCalendar from "Hooks/useCalendar";
 
 const Calendar = () => {
