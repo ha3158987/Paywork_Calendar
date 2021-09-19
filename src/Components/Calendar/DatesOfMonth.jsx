@@ -1,16 +1,43 @@
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import * as moment from "moment";
 
-const DatesOfMonth = ({
-  today,
-  currMonth,
-  currYear,
-  firstDayOfThisMonth,
-  lastDayOfThisMonth,
-  lastDateOfLastMonth,
-  datesOfCurrMonth,
-  selectedDate,
-  handleClickedDate,
-}) => {
+const DatesOfMonth = ({ handleClickedDate }) => {
+  const { today, currYear, currMonth, selectedDate } = useSelector(
+    (state) => state
+  );
+
+  //보여지는 월의 마지막 날짜
+  const lastDateOfCurrMonth = moment([currYear, 0, 31])
+    .month(currMonth - 1)
+    .format("DD");
+
+  //이번달 1일의 요일
+  const firstDayOfThisMonth = moment([currYear, currMonth - 1, 1]).day();
+
+  //이번달 마지막날의 요일
+  const lastDayOfThisMonth = moment([
+    currYear,
+    currMonth - 1,
+    lastDateOfCurrMonth,
+  ]).day();
+
+  //이전달의 마지막 날짜
+  const lastDateOfLastMonth = moment([currYear, 0, 31])
+    .month(currMonth - 1 - 1)
+    .format("DD");
+
+  //보여지는 월의 1 ~ 마지막날짜까지 일자를 갖고 있는 배열
+  const datesOfCurrMonth = Array.from(
+    { length: lastDateOfCurrMonth },
+    (v, i) => {
+      return {
+        date: i + 1,
+        month: "current",
+      };
+    }
+  );
+
   const getDatesOfLastMonth = () => {
     const emptyArr = Array.from({ length: firstDayOfThisMonth });
     let firstShowingDate = lastDateOfLastMonth - firstDayOfThisMonth + 1;
