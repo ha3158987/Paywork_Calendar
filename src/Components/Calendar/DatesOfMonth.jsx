@@ -1,43 +1,14 @@
 import styled from "styled-components";
+import useCalendar from "Hooks/useCalendar";
 
-const DatesOfMonth = ({
-  today,
-  currMonth,
-  currYear,
-  firstDayOfThisMonth,
-  lastDayOfThisMonth,
-  lastDateOfLastMonth,
-  datesOfCurrMonth,
-  selectedDate,
-  handleClickedDate,
-}) => {
-  const getDatesOfLastMonth = () => {
-    const emptyArr = Array.from({ length: firstDayOfThisMonth });
-    let firstShowingDate = lastDateOfLastMonth - firstDayOfThisMonth + 1;
-    return emptyArr.map(() => {
-      return {
-        date: firstShowingDate++,
-        month: "previous",
-      };
-    });
-  };
-
-  const getDatesOfNextMonth = () => {
-    const emptyArr = Array.from({ length: 6 - lastDayOfThisMonth });
-    let count = 1;
-    return emptyArr.map(() => {
-      return {
-        date: count++,
-        month: "next",
-      };
-    });
-  };
-
-  const datesOfMonth = [
-    ...getDatesOfLastMonth(),
-    ...datesOfCurrMonth,
-    ...getDatesOfNextMonth(),
-  ];
+const DatesOfMonth = () => {
+  const {
+    currMonth,
+    isToday,
+    isSelectedDate,
+    datesOfMonth,
+    handleClickedDate,
+  } = useCalendar();
 
   return (
     <DatesOfMonthLayout>
@@ -46,17 +17,8 @@ const DatesOfMonth = ({
           <DateButton
             onClick={() => handleClickedDate(date, currMonth)}
             category={date.month}
-            isToday={
-              currYear === today.year &&
-              currMonth === today.month &&
-              date.date === today.date
-            }
-            isSelectedDate={
-              selectedDate &&
-              currYear === selectedDate.year &&
-              currMonth === selectedDate.month &&
-              date.date === selectedDate.date
-            }
+            isToday={isToday(date)}
+            isSelectedDate={isSelectedDate(date)}
           >
             {date.date}
           </DateButton>

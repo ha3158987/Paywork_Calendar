@@ -1,4 +1,6 @@
 import * as moment from "moment";
+import { stateCreator, isSameSelectedDate } from "ReduxStore/Helpers/calendar";
+
 //initialState
 export const calendarInitialState = {
   today: {
@@ -36,92 +38,66 @@ export const clickThisMonthButton = () => ({
 function calendarReducer(calendarState = calendarInitialState, action) {
   switch (action.type) {
     case CLICK_DATE: {
-      let newCalendarState = { ...calendarState };
-      if (action.payload.clickedDate.month === "previous") {
-        if (calendarState.currMonth === 1) {
-          newCalendarState = {
-            ...calendarState,
-            currYear: calendarState.currYear - 1,
-            currMonth: 12,
-          };
-        } else {
-          newCalendarState = {
-            ...calendarState,
-            currMonth: calendarState.currMonth - 1,
-          };
-        }
-      } else if (action.payload.clickedDate.month === "next") {
-        if (calendarState.currMonth === 12) {
-          newCalendarState = {
-            ...calendarState,
-            currYear: calendarState.currYear + 1,
-            currMonth: 1,
-          };
-        } else {
-          newCalendarState = {
-            ...calendarState,
-            currMonth: calendarState.currMonth + 1,
-          };
-        }
-      }
+      let newCalendarState = stateCreator({
+        type: action.payload.clickedDate.month,
+        currCalendarState: calendarState,
+      });
 
-      if (!newCalendarState.selectedDate) {
-        return {
-          ...newCalendarState,
-          selectedDate: {
-            year: newCalendarState.currYear,
-            month: newCalendarState.currMonth,
-            date: action.payload.clickedDate.date,
-          },
-        };
-      }
-
+      // 선택한 날짜 재선택 === 해제
       if (
-        action.payload.displayedMonth === newCalendarState.selectedDate.month &&
-        action.payload.clickedDate.date === newCalendarState.selectedDate.date
+        isSameSelectedDate({
+          payload: action.payload,
+          selectedDate: newCalendarState.selectedDate,
+        })
       ) {
         return {
           ...newCalendarState,
           selectedDate: null,
         };
-      } else {
-        return {
-          ...newCalendarState,
-          selectedDate: {
-            year: newCalendarState.currYear,
-            month: newCalendarState.currMonth,
-            date: action.payload.clickedDate.date,
-          },
-        };
       }
+      // 새로 날짜 선택, 다른 날짜 선택 === 선택
+      return {
+        ...newCalendarState,
+        selectedDate: {
+          year: newCalendarState.currYear,
+          month: newCalendarState.currMonth,
+          date: action.payload.clickedDate.date,
+        },
+      };
     }
     case CLICK_PREV_BUTTON: {
-      if (calendarState.currMonth === 1) {
-        return {
-          ...calendarState,
-          currYear: calendarState.currYear - 1,
-          currMonth: 12,
-        };
-      } else {
-        return {
-          ...calendarState,
-          currMonth: calendarState.currMonth - 1,
-        };
-      }
+      return stateCreator({
+        type: "previous",
+        currCalendarState: calendarState,
+      });
+
+      // if (calendarState.currMonth === 1) {
+      //   return {
+      //     ...calendarState,
+      //     currYear: calendarState.currYear - 1,
+      //     currMonth: 12,
+      //   };
+      // } else {
+      //   return {
+      //     ...calendarState,
+      //     currMonth: calendarState.currMonth - 1,
+      //   };
+      // }
     }
     case CLICK_NEXT_BUTTON: {
-      if (calendarState.currMonth === 12) {
-        return {
-          ...calendarState,
-          currYear: calendarState.currYear + 1,
-          currMonth: 1,
-        };
-      } else {
-        return {
-          ...calendarState,
-          currMonth: calendarState.currMonth + 1,
-        };
-      }
+      return stateCreator({ type: "next", currCalendarState: calendarState });
+      // if (calendarState.currMonth === 12) {
+      //   return {
+      //     ...calendarState,
+      //     currYear: calendarState.currYear + 1,
+      //     currMonth: 1,
+      //   };
+      // } else {
+      //   return {
+      //     ...calendarState,
+      //     currMonth: calendarState.currMonth + 1,
+      //   };
+      // }
     }
     case CLICK_THISMONTH_BUTTON: {
       return {

@@ -1,99 +1,27 @@
-import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 import CalendarButtons from "./CalendarButtons";
 import DaysOfWeek from "./DaysOfWeek";
 import DatesOfMonth from "./DatesOfMonth";
-import styled from "styled-components";
-import * as moment from "moment";
-import {
-  clickDate,
-  clickPrevButton,
-  clickNextButton,
-  clickThisMonthButton,
-} from "ReduxStore/modules/calendar";
+import useCalendar from "Hooks/useCalendar";
 
 const Calendar = () => {
-  const dispatch = useDispatch();
-  const { today, currYear, currMonth, selectedDate } = useSelector(
-    (state) => state
-  );
-
-  //이번달 1일의 요일
-  const firstDayOfThisMonth = moment([currYear, currMonth - 1, 1]).day();
-  //보여지는 월의 마지막 날짜
-  const lastDateOfCurrMonth = moment([currYear, 0, 31])
-    .month(currMonth - 1)
-    .format("DD");
-  //이번달 마지막날의 요일
-  const lastDayOfThisMonth = moment([
-    currYear,
-    currMonth - 1,
-    lastDateOfCurrMonth,
-  ]).day();
-  //이전달의 마지막 날짜
-  const lastDateOfLastMonth = moment([currYear, 0, 31])
-    .month(currMonth - 1 - 1)
-    .format("DD");
-  //보여지는 월의 1 ~ 마지막날짜까지 일자를 갖고 있는 배열
-  const datesOfCurrMonth = Array.from(
-    { length: lastDateOfCurrMonth },
-    (v, i) => {
-      return {
-        date: i + 1,
-        month: "current",
-      };
-    }
-  );
-
-  const handleClickedDate = (clickedDate, displayedMonth) => {
-    dispatch(
-      clickDate({
-        clickedDate,
-        displayedMonth,
-      })
-    );
-  };
-
-  const handlePrevButtonClick = () => {
-    dispatch(clickPrevButton());
-  };
-
-  const handleNextButtonClick = () => {
-    dispatch(clickNextButton());
-  };
-
-  const handleThisMonthButtonClick = () => {
-    dispatch(clickThisMonthButton());
-  };
+  const { currYear, currMonth } = useCalendar();
 
   return (
     <CalendarContainer>
       <CalendarLayout>
         <CalendarHeader>
           <CurrentYearMonthLayer>
-            <CurrentYear>{currYear} </CurrentYear>
+            <CurrentYear>{currYear}</CurrentYear>
             <CurrentMonth>. {currMonth}</CurrentMonth>
           </CurrentYearMonthLayer>
           <CalendarButtonLayer>
-            <CalendarButtons
-              handlePrevButtonClick={handlePrevButtonClick}
-              handleNextButtonClick={handleNextButtonClick}
-              handleThisMonthButtonClick={handleThisMonthButtonClick}
-            />
+            <CalendarButtons />
           </CalendarButtonLayer>
         </CalendarHeader>
         <CalendarBody>
           <DaysOfWeek />
-          <DatesOfMonth
-            today={today}
-            currMonth={currMonth}
-            currYear={currYear}
-            firstDayOfThisMonth={firstDayOfThisMonth}
-            lastDayOfThisMonth={lastDayOfThisMonth}
-            lastDateOfLastMonth={lastDateOfLastMonth}
-            datesOfCurrMonth={datesOfCurrMonth}
-            selectedDate={selectedDate}
-            handleClickedDate={handleClickedDate}
-          />
+          <DatesOfMonth />
         </CalendarBody>
       </CalendarLayout>
     </CalendarContainer>
