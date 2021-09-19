@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
+import { style } from "./CalendarStyles";
 import Button from "Components/Common/Button";
-import styled from "styled-components";
 import {
   clickPrevButton,
   clickNextButton,
@@ -40,9 +40,6 @@ const CalendarButtons = () => {
   );
 };
 
-const CalendarButtonLayout = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
-
 export default CalendarButtons;
+
+const { CalendarButtonLayout } = style;

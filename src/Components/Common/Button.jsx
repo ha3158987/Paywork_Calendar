@@ -1,7 +1,8 @@
 import React from "react";
-import { ReactComponent as PrevArrow } from "Assets/leftArrow.svg";
-import { ReactComponent as NextArrow } from "Assets/rightArrow.svg";
-import styled, { css } from "styled-components";
+import { css } from "styled-components";
+import { style } from "./ButtonStyles";
+
+const { PrevArrow, NextArrow, StyledButton } = style;
 
 const ICON = {
   prev: PrevArrow,
@@ -10,14 +11,16 @@ const ICON = {
 
 const VARIANT = {
   previous: css`
-    border: 1px solid red;
+    margin: 0.5rem 0 0.5rem 0.5rem;
   `,
 
   next: css`
-    border: 1px solid yellow;
+    margin: 0.5rem;
   `,
 
   thisMonth: css`
+    width: 70px;
+    margin: 0.5rem;
     font-size: 0.8rem;
   `,
 };
@@ -35,21 +38,5 @@ const Button = ({ icon, name, handleClickFunc, children }) => {
     </StyledButton>
   );
 };
-
-const StyledButton = styled.button`
-  ${(props) => props.varientStyle}
-
-  padding: 0.3rem 0.5rem;
-  margin: 0.5rem;
-  cursor: pointer;
-  background-color: "#f9f9f9";
-  border: none;
-  border-radius: 5px;
-
-  :hover {
-    background-color: #d0d0d0;
-    transition: background-color 0.2s;
-  }
-`;
 
 export default Button;
