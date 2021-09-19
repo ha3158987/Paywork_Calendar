@@ -36,64 +36,60 @@ export const clickThisMonthButton = () => ({
 function calendarReducer(calendarState = calendarInitialState, action) {
   switch (action.type) {
     case CLICK_DATE: {
+      let newCalendarState = { ...calendarState };
       if (action.payload.clickedDate.month === "previous") {
         if (calendarState.currMonth === 1) {
-          return {
+          newCalendarState = {
             ...calendarState,
             currYear: calendarState.currYear - 1,
             currMonth: 12,
           };
         } else {
-          return {
+          newCalendarState = {
             ...calendarState,
             currMonth: calendarState.currMonth - 1,
           };
         }
       } else if (action.payload.clickedDate.month === "next") {
         if (calendarState.currMonth === 12) {
-          return {
+          newCalendarState = {
             ...calendarState,
             currYear: calendarState.currYear + 1,
             currMonth: 1,
           };
         } else {
-          return {
+          newCalendarState = {
             ...calendarState,
             currMonth: calendarState.currMonth + 1,
           };
         }
       }
 
-      if (!calendarState.selectedDate) {
+      if (!newCalendarState.selectedDate) {
         return {
-          ...calendarState,
+          ...newCalendarState,
           selectedDate: {
-            year: calendarState.currYear,
-            month: calendarState.currMonth,
+            year: newCalendarState.currYear,
+            month: newCalendarState.currMonth,
             date: action.payload.clickedDate.date,
           },
         };
       }
 
       if (
-        action.payload.displayedMonth === calendarState.selectedDate.month &&
-        action.payload.clickedDate.date === calendarState.selectedDate.date
+        action.payload.displayedMonth === newCalendarState.selectedDate.month &&
+        action.payload.clickedDate.date === newCalendarState.selectedDate.date
       ) {
         return {
-          ...calendarState,
+          ...newCalendarState,
           selectedDate: null,
         };
       } else {
         return {
-          ...calendarState,
+          ...newCalendarState,
           selectedDate: {
-            year: calendarState.currYear,
-            month:
-              action.payload.clickedDate.month === "previous"
-                ? calendarState.currMonth - 1
-                : action.payload.clickedDate.month === "next"
-                ? calendarState.currMonth + 1
-                : calendarState.currMonth,
+            year: newCalendarState.currYear,
+            month: newCalendarState.currMonth,
             date: action.payload.clickedDate.date,
           },
         };
