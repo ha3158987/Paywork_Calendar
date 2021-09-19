@@ -1,23 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
 import CalendarButtons from "./CalendarButtons";
 import DaysOfWeek from "./DaysOfWeek";
 import DatesOfMonth from "./DatesOfMonth";
 import styled from "styled-components";
 
-import { clickDate } from "ReduxStore/modules/calendar";
+import useCalendar from "Hooks/useCalendar";
 
 const Calendar = () => {
-  const dispatch = useDispatch();
-  const { currYear, currMonth } = useSelector((state) => state);
-
-  const handleClickedDate = (clickedDate, displayedMonth) => {
-    dispatch(
-      clickDate({
-        clickedDate,
-        displayedMonth,
-      })
-    );
-  };
+  const { currYear, currMonth } = useCalendar();
 
   return (
     <CalendarContainer>
@@ -33,7 +22,7 @@ const Calendar = () => {
         </CalendarHeader>
         <CalendarBody>
           <DaysOfWeek />
-          <DatesOfMonth handleClickedDate={handleClickedDate} />
+          <DatesOfMonth />
         </CalendarBody>
       </CalendarLayout>
     </CalendarContainer>

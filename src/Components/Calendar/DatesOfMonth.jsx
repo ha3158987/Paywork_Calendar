@@ -1,11 +1,10 @@
-import styled from "styled-components";
-import { useSelector } from "react-redux";
 import * as moment from "moment";
+import styled from "styled-components";
+import useCalendar from "Hooks/useCalendar";
 
-const DatesOfMonth = ({ handleClickedDate }) => {
-  const { today, currYear, currMonth, selectedDate } = useSelector(
-    (state) => state
-  );
+const DatesOfMonth = () => {
+  const { currYear, currMonth, today, selectedDate, handleClickedDate } =
+    useCalendar();
 
   //보여지는 월의 마지막 날짜
   const lastDateOfCurrMonth = moment([currYear, 0, 31])
