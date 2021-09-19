@@ -4,7 +4,7 @@ import DaysOfWeek from "./DaysOfWeek";
 import DatesOfMonth from "./DatesOfMonth";
 import styled from "styled-components";
 import * as moment from "moment";
-import { clickDate } from "ReduxStore/modules/calendar";
+import { clickDate, clickPrevButton } from "ReduxStore/modules/calendar";
 
 const Calendar = () => {
   const dispatch = useDispatch();
@@ -48,14 +48,9 @@ const Calendar = () => {
     );
   };
 
-  // const handlePrevButtonClick = () => {
-  //   if (currMonth === 1) {
-  //     setCurrYear(currYear - 1);
-  //     setCurrMonth(12);
-  //   } else {
-  //     setCurrMonth(currMonth - 1);
-  //   }
-  // };
+  const handlePrevButtonClick = () => {
+    dispatch(clickPrevButton());
+  };
 
   // const handleNextButtonClick = () => {
   //   if (currMonth === 12) {
@@ -81,9 +76,9 @@ const Calendar = () => {
           </CurrentYearMonthLayer>
           <CalendarButtonLayer>
             <CalendarButtons
-            // handlePrevButtonClick={handlePrevButtonClick}
-            // handleNextButtonClick={handleNextButtonClick}
-            // handleThisMonthButtonClick={handleThisMonthButtonClick}
+              handlePrevButtonClick={handlePrevButtonClick}
+              // handleNextButtonClick={handleNextButtonClick}
+              // handleThisMonthButtonClick={handleThisMonthButtonClick}
             />
           </CalendarButtonLayer>
         </CalendarHeader>

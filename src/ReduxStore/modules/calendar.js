@@ -22,6 +22,9 @@ export const clickDate = ({ clickedDate, displayedMonth }) => ({
   type: CLICK_DATE,
   payload: { clickedDate, displayedMonth },
 });
+export const clickPrevButton = () => ({
+  type: CLICK_PREV_BUTTON,
+});
 
 //reducer 함수
 function calendarReducer(calendarState = calendarInitialState, action) {
@@ -90,6 +93,21 @@ function calendarReducer(calendarState = calendarInitialState, action) {
         };
       }
     }
+    case CLICK_PREV_BUTTON: {
+      if (calendarState.currMonth === 1) {
+        return {
+          ...calendarState,
+          currYear: calendarState.currYear - 1,
+          currMonth: 12,
+        };
+      } else {
+        return {
+          ...calendarState,
+          currMonth: calendarState.currMonth - 1,
+        };
+      }
+    }
+
     default:
       return calendarState;
   }
