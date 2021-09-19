@@ -7,7 +7,7 @@ export const stateCreator = ({ type, currCalendarState }) => {
   };
 
   switch (type) {
-    // 이전 달 날짜 선택 상황
+    // 이전 달의 날짜 선택 시
     case "previous": {
       // 연도 변경 체크
       if (isJanuary(currCalendarState.currMonth)) {
@@ -23,7 +23,7 @@ export const stateCreator = ({ type, currCalendarState }) => {
         };
       }
     }
-    // 다음 달 날짜 선택 상황
+    // 다음 달의 날짜 선택 시
     case "next": {
       // 연도 변경 체크
       if (isDecember(currCalendarState.currMonth)) {
