@@ -10,14 +10,16 @@ const ICON = {
 
 const VARIANT = {
   previous: css`
-    border: 1px solid red;
+    margin: 0.5rem 0 0.5rem 0.5rem;
   `,
 
   next: css`
-    border: 1px solid yellow;
+    margin: 0.5rem;
   `,
 
   thisMonth: css`
+    width: 70px;
+    margin: 0.5rem;
     font-size: 0.8rem;
   `,
 };
@@ -40,7 +42,6 @@ const StyledButton = styled.button`
   ${(props) => props.varientStyle}
 
   padding: 0.3rem 0.5rem;
-  margin: 0.5rem;
   cursor: pointer;
   background-color: "#f9f9f9";
   border: none;
